@@ -1,5 +1,6 @@
+"use server"
 import { client } from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs"
+import { clerkClient, currentUser } from "@clerk/nextjs"
 
 export const onIntegrateDomain = async (domain: string, icon: string) => {
     const user = await currentUser();
@@ -129,5 +130,63 @@ export const onGetAllAccoutDomains = async () =>{
         return { ...domains};
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const onUpdatePassword = async (password:string) => {
+    try {
+        const user = await currentUser();
+        if(!user) return null;
+
+        const update = await clerkClient.users.updateUser(user.id, {password});
+        if(update){
+            return {status: 200, message: "Password updated"};
+        }
+    } catch (error) {
+        return {status:500, message: "Error, not able to update password"};
+    }
+}
+
+export const onGetCurrentDomainInfo = async (domain:string) => {
+    try {
+        const user = await currentUser();
+        if(!user)return null;
+
+        const domainInfo = await client.user.findUnique({
+        where: {
+            clerkId: user.id
+        },
+        select: {
+            domains : {
+                where: {
+                    name: {
+                        contains: domain
+                    },
+                },
+                select: {
+                    id:true,
+                    name: true,
+                    icon: true,
+                    userId: true,
+                    chatBot: {
+                        select: {
+                            id:true,
+                            welcomeMessage: true,
+                            icon: true
+                        },
+                    },
+                },
+            },
+        },
+        });
+        if(domainInfo){
+           return domainInfo;
+        }
+        else{
+            return null;
+        }
+    } catch (error) {
+        console.log(error);
+        return null;
     }
 }

@@ -41,3 +41,16 @@ export const UserLoginSchema: ZodType<UserLoginProps> = z.object({
     email:z.string().email({ message: "Incorrect email format"}),
     password: z.string().min(8, { message: "Your password must be atleast 8 character long"})
 });
+
+export type ChangePasswordProps = {
+    password: string
+    confirmPassword: string
+}
+
+export const ChangePasswordSchema : ZodType<ChangePasswordProps> = z.object({
+    password: z.string().min(8, { message: "Your password must be atleast 8 character long"}),
+    confirmPassword: z.string()
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Password must match",
+    path: ["confirmPassword"]
+})

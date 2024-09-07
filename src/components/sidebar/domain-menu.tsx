@@ -70,9 +70,9 @@ const DomainMenu = ({domains,min}: Props) => {
             {domains &&
                 domains.map((domain) => (
                     <Link
-                        href={`/setting/${domain.name.split(".")[0]}`}
+                        href={`/settings/${domain.name.split(".")[0]}`}
                         key={domain.id}
-                        className={cn("flex gap-3 items-center hover:bg-white rounded-lg transition duration-100 ease-in-out cursor-pointer",
+                        className={cn("flex gap-3 items-center justify-center  hover:bg-white rounded-lg transition duration-100 ease-in-out cursor-pointer",
                             !min ? "p-2" : "py-2",
                             domain.name.split(".")[0] == isDomain && "bg-white"
                         )}>
@@ -81,6 +81,7 @@ const DomainMenu = ({domains,min}: Props) => {
                             alt="logo"
                             width={20}
                             height={20}
+                            className="border rounded-lg"
                         />
                         {!min && <p className="text-sm">{domain.name}</p>}
                     </Link>

@@ -11,7 +11,7 @@ export default function Home() {
     <main>
       <NavBar />
       <section>
-        <div className="flex items-center justify-center flex-col mt-[80px] gap-4">
+        <div className="flex items-center justify-center flex-col mt-[80px] gap-4 ">
           <span className="text-orange bg-orange/20 px-4 py-2 rounded-full text-sm">
             An AI powered sales assistant chatbot
           </span>
@@ -24,7 +24,7 @@ export default function Home() {
             className="max-w-lg object-contain max-md:w-[250px]"
           />
 
-          <p className="text-black font-normal text-sm text-center w-11/12">
+          <p className="text-black font-normal text-sm text-center w-11/12 dark:text-white">
             Your AI powered sales assistant! Embed Corinna AI into any website with just a snippet of code!
           </p>
 
@@ -42,10 +42,10 @@ export default function Home() {
       </section>
       <section className="border-t border-zinc-100 mt-10 flex flex-col">
         <div className="flex flex-col gap-2 items-center w-11/12">
-          <h2 className="text-black text-lg font-semibold text-center">
+          <h2 className="text-black text-lg font-semibold text-center dark:text-white">
             Choose what fits you right
           </h2>
-          <p className="text-black font-normal text-sm text-center w-11/12">
+          <p className="text-black font-normal text-sm text-center w-11/12 dark:text-white">
             Our straightforward pricing plans are tailored to meet your needs. If you're not ready to commit you can get started for free.
           </p>
         </div>

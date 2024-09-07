@@ -23,27 +23,27 @@ const NavBar = (props: Props) => {
 
             <ul className="flex justify-between gap-2  self-stretch my-auto text-sm leading-5 text-neutral-700 font-normal max-md:flex-wrap max-md:max-w-full md:gap-x-5">
                 <li className="">
-                    <Link href="/" className="text-black hover:text-neutral-600">
+                    <Link href="/" className="text-black  dark:hover:text-gray-200 dark:text-white">
                         Home
                     </Link>
                 </li>
                 <li>
-                    <Link href="/pricing" className="text-black">
+                    <Link href="/pricing" className="text-black dark:hover:text-gray-200 dark:text-white">
                         Pricing
                     </Link>
                 </li>
                 <li>
-                    <Link href="/NewsRoom" className="text-black">
+                    <Link href="/NewsRoom" className="text-black dark:hover:text-gray-200 dark:text-white">
                         NewsRoom
                     </Link>
                 </li>
                 <li>
-                    <Link href="/features" className="text-black">
+                    <Link href="/features" className="text-black dark:hover:text-gray-200 dark:text-white">
                         Features
                     </Link>
                 </li>
                 <li>
-                    <Link href="/contact-us" className="text-black">
+                    <Link href="/contact-us" className="text-black dark:hover:text-gray-200 dark:text-white">
                         Contact us
                     </Link>
                 </li>
