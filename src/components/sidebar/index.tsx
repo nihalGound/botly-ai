@@ -20,7 +20,7 @@ const SideBar = ({domains}: Props) => {
     const { expand, onExpand, page, onSignOut} = UseSideBar();
   return (
     <div className={cn(
-      "bg-cream h-full w-[60px] fill-mode-forwards fixed md:relative dark:bg-black",
+      " z-50 bg-cream h-screen w-[60px] fill-mode-forwards fixed md:relative dark:bg-black",
       expand == undefined
        && '',
        expand == true

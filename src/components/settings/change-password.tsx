@@ -12,7 +12,7 @@ type Props = {}
 const ChangePassword = (props: Props) => {
     const { loading, register, onChangePassword, errors} = useChangePassword();
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+    <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 max-md:pr-4">
         <div className="lg:col-span-1">
             <Section
                 label="Change Password"

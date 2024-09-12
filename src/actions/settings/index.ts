@@ -1,6 +1,7 @@
 "use server"
 import { client } from "@/lib/prisma";
 import { clerkClient, currentUser } from "@clerk/nextjs"
+import { ReceiptRussianRuble } from "lucide-react";
 
 export const onIntegrateDomain = async (domain: string, icon: string) => {
     const user = await currentUser();
@@ -177,6 +178,7 @@ export const onGetCurrentDomainInfo = async (domain:string) => {
                     },
                 },
             },
+            subscription: true
         },
         });
         if(domainInfo){
@@ -188,5 +190,290 @@ export const onGetCurrentDomainInfo = async (domain:string) => {
     } catch (error) {
         console.log(error);
         return null;
+    }
+}
+
+export const onUpdateDomain = async (id:string, name: string) => {
+    try {
+        //check if domain with name exist
+        const domainExist = await client.domain.findFirst({
+            where: {
+                name: {
+                    contains: name,
+                },
+            },
+        })
+
+        if(!domainExist) {
+            const domain = await client.domain.update({
+                where: {
+                    id,
+                },
+                data: {
+                    name,
+                },
+            })
+
+            if(domain) {
+                return {
+                    status: 200,
+                    message: "Domain updated",
+                }
+            }
+
+            return {
+                status: 400,
+                message: "Oops something went wrong!",
+            }
+        }
+        return {
+            status: 400,
+            message: "Domain with this name already exist",
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const onChatBotImageUpdate = async (id:string, icon: string) => {
+    const user = await currentUser()
+
+    if(!user) return 
+
+    try {
+        const domain = await client.domain.update({
+            where: {
+                id,
+            },
+            data: {
+                chatBot: {
+                    update: {
+                        data: {
+                            icon,
+                        },
+                    },
+                },
+            },
+        })
+
+        if(domain) {
+            return {
+                status: 200,
+                message: "Domain updated",
+            }
+        }
+
+        return {
+            status: 400,
+            message: "Oops something went wrong!",
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const onUpdateWelcomeMessage = async (message: string, id:string) => {
+    try {
+        const update = await client.domain.update({
+            where: {
+                id,
+            },
+            data: {
+                chatBot: {
+                    update: {
+                        data: {
+                            welcomeMessage: message,
+                        },
+                    },
+                },
+            },
+        })
+        if(update) {
+            return {
+                status: 200,
+                message: "Welcome message Updated"
+            }
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const onDeleteUserDomain = async (id:string) => {
+    const user = await currentUser();
+    if(!user)return ;
+    try {
+        //validate user
+        const validUser = await client.user.findFirst({
+            where: {
+                clerkId: user.id,
+            },
+            select: {
+                id:true
+            }
+        });
+
+        if(validUser) {
+            //check that domain belongs to current user and then delete it
+            const deletedDomain = await client.domain.delete({
+                where: {
+                    userId: validUser.id,
+                    id,
+                },
+                select: {
+                    name: true
+                }
+            })
+            if(deletedDomain){
+                return {
+                    status: 200,
+                    message: `${deletedDomain.name} was deleted successfully!`
+                }
+            }
+        }
+        
+        return {
+            status: 400,
+            message: "Oops something went wrong!"
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const onCreateHelpDeskQuestion = async (
+    id: string,
+    question: string,
+    answer: string
+) => {
+    try {
+        const helpDeskQuestion = await client.domain.update({
+            where: {
+                id,
+            },
+            data: {
+                helpdesk: {
+                    create: {
+                        question,
+                        answer,
+                    },
+                },
+            },
+            include: {
+                helpdesk: {
+                    select: {
+                        id: true,
+                        question: true,
+                        answer: true,
+                    },
+                },
+            },
+        })
+        if(helpDeskQuestion){
+            return {
+                status: 200,
+                message: "New help desk question added",
+                questions: helpDeskQuestion.helpdesk,
+            }
+        }
+        return {
+            status: 400,
+            message: "Oops! something went wrong",
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const OnGetAllHelpDeskQuestions = async(id:string) => {
+    try {
+        const questions = await client.helpDesk.findMany({
+            where: {
+                domainId: id,
+            },
+            select: {
+                question: true,
+                answer: true,
+                id: true,
+            },
+        })
+
+        return {
+            status: 200,
+            message: "New help desk question added",
+            questions: questions,
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const onCreateFilterQuestions = async(id: string, question: string) => {
+    try {
+        const filterQuestion = await client.domain.update({
+            where: {
+                id,
+            },
+            data: {
+                filterQuestions: {
+                    create: {
+                        question,
+                    },
+                },
+            },
+            include: {
+                filterQuestions: {
+                    select: {
+                        id: true,
+                        question: true,
+                    },
+                },
+            },
+        });
+
+        if(filterQuestion){
+            return {
+                status: 200,
+                message: "Filter question is added",
+                questions: filterQuestion.filterQuestions
+            }
+        }
+        return {
+            status: 400,
+            message: "Oops something went wrong!!"
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const onGetAllFilterQuestions = async (id:string) => {
+    try {
+        const filterQuestions = await client.filterQuestions.findMany({
+            where: {
+                domainId:id,
+            },
+            select: {
+                question: true,
+                id: true,
+            },
+            orderBy: {
+                question: "asc",
+            }
+        })
+        if(filterQuestions) {
+            return {
+                status: 200,
+                message: "",
+                questions: filterQuestions,
+            }
+        }
+        return {
+            status: 400,
+            message: "Oops! something went wrong"
+        }
+    } catch (error) {
+        console.log(error)
     }
 }

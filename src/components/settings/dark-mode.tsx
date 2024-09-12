@@ -19,8 +19,8 @@ const DarkModeToggle = (props: Props) => {
           message="Select or customize your UI theme"
         />
       </div>
-      <div className="lg:col-span-4 flex lg:flex-row flex-col items-start gap-5 ">
-        <div className={cn("rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent",
+      <div className="lg:col-span-4 flex lg:flex-row flex-col items-start gap-5 max-md:pr-4 ">
+        <div className={cn("rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent max-md:max-w-full",
           theme == "system" && 'border-orange'
         )}
 
@@ -28,7 +28,7 @@ const DarkModeToggle = (props: Props) => {
         > 
           <SystemMode/>
         </div>
-        <div className={cn("rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent",
+        <div className={cn("rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent max-md:max-w-full",
           theme == "light" && 'border-orange'
         )}
 
@@ -36,7 +36,7 @@ const DarkModeToggle = (props: Props) => {
         > 
           <LightMode />
         </div>
-        <div className={cn("rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent",
+        <div className={cn("rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent max-md:max-w-full",
           theme == "dark" && 'border-orange'
         )}
 

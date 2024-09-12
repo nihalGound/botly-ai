@@ -69,7 +69,7 @@ model Billings {
 model HelpDesk {
   id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   question    String
-  answered    String?
+  answer    String?
   Domain      Domain? @relation(fields: [domainId], references: [id], onDelete: Cascade)
   domainId    String? @db.Uuid
 }
