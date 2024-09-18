@@ -1,7 +1,6 @@
 "use server"
 import { client } from "@/lib/prisma";
 import { clerkClient, currentUser } from "@clerk/nextjs"
-import { ReceiptRussianRuble } from "lucide-react";
 
 export const onIntegrateDomain = async (domain: string, icon: string) => {
     const user = await currentUser();

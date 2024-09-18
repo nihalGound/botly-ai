@@ -3,6 +3,7 @@ import React from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import Image from 'next/image'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { cloudianryCofig } from '@/lib/utils'
 
 type Props = {
     trigger: React.ReactNode
@@ -25,6 +26,7 @@ const Modal = ({trigger,children,title,description,type,logo}: Props) => {
                         <div className="flex justify-center gap-3">
                             <div className="w-12 h-12 relative">
                                 <Image
+                                    //upload image in cloudinary then change src url WIP
                                     src={`https://ucarecdn.com/2c9bd4ab-1f00-41df-bad2-df668f65a232/`}
                                     fill
                                     alt="Botly"
@@ -36,7 +38,7 @@ const Modal = ({trigger,children,title,description,type,logo}: Props) => {
                             </div>
                             <div className="w-1/2 h-1/2 relative">
                                 <Image
-                                    src={`https://ucarecdn.com/${logo}/`}
+                                    src={`https://res.cloudinary.com/${cloudianryCofig.cloud_name}/image/upload/f_auto,q_auto/${logo}`}
                                     fill
                                     alt="Stripe"
                                 />

@@ -21,11 +21,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  stripeId  String?
+  stripeId String?
 
-  domains   Domain[]
+  domains Domain[]
 
-  campaign  Campaign[]
+  campaign Campaign[]
 
   subscription Billings?
 }
@@ -48,14 +48,14 @@ model Domain {
 }
 
 model ChatBot {
-  id              String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  welcomeMessage  String?
-  icon            String?
-  background      String?
-  textColor       String?
-  helpdesk        Boolean @default(false)
-  Domain          Domain? @relation(fields: [domainId],references: [id],onDelete: Cascade)
-  domainId        String? @unique @db.Uuid
+  id             String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  welcomeMessage String?
+  icon           String?
+  background     String?
+  textColor      String?
+  helpdesk       Boolean @default(false)
+  Domain         Domain? @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  domainId       String? @unique @db.Uuid
 }
 
 model Billings {
@@ -67,41 +67,43 @@ model Billings {
 }
 
 model HelpDesk {
-  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  question    String
-  answer    String?
-  Domain      Domain? @relation(fields: [domainId], references: [id], onDelete: Cascade)
-  domainId    String? @db.Uuid
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  question String
+  answer   String
+
+  Domain   Domain? @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  domainId String? @db.Uuid
 }
 
 model FilterQuestions {
-  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  question  String
-  answered  String?
+  id       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  question String
+  answered String?
 
-  Domain    Domain? @relation(fields: [domainId],references: [id],onDelete: Cascade)
-  domainId  String? @db.Uuid
+  Domain   Domain? @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  domainId String? @db.Uuid
 }
 
 model CustomerResponses {
-  id          String    @id @default(dbgenerated("gen_random_uuid()"))  @db.Uuid
-  question    String
-  answered    String?
-  customer    Customer  @relation(fields: [customerId],references: [id],onDelete: Cascade)
-  customerId  String    @db.Uuid
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  question   String
+  answered   String?
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customerId String   @db.Uuid
 }
 
 model Customer {
-  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email     String?
+  id    String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email String? 
+
   questions CustomerResponses[]
 
-  chatRoom  ChatRoom[]
+  chatRoom ChatRoom[]
 
-  booking   Bookings[]
+  booking Bookings[]
 
-  Domain    Domain? @relation(fields: [domainId], references: [id], onDelete: Cascade)
-  domainId  String? @db.Uuid
+  Domain   Domain? @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  domainId String? @db.Uuid
 }
 
 model ChatRoom {
@@ -113,50 +115,50 @@ model ChatRoom {
   Customer   Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId String?   @db.Uuid
 
-  message    ChatMessage[]
+  message ChatMessage[]
 }
 
 model ChatMessage {
-  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  message     String
-  role        Role?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  ChatRoom    ChatRoom? @relation(fields: [charRoomId],references: [id],onDelete: Cascade)
-  charRoomId  String?   @db.Uuid
-  seen        Boolean   @default(false)
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  message    String
+  role       Role?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  ChatRoom   ChatRoom? @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
+  chatRoomId String?   @db.Uuid
+  seen       Boolean   @default(false)
 }
 
 model Bookings {
-  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  date        DateTime
-  slot        String  
-  email       String
-  Customer    Customer? @relation(fields: [customerId],references: [id],onDelete: Cascade)
-  customerId  String?   @db.Uuid
-  domainId    String?   @db.Uuid
-  createdAt   DateTime  @default(now())
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date       DateTime
+  slot       String
+  email      String
+  Customer   Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customerId String?   @db.Uuid
+  domainId   String?   @db.Uuid
+  createdAt  DateTime  @default(now())
 }
 
 model Campaign {
-  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name      String
   customers String[]
   domain    Domain[]
   template  String?
-  User      User?     @relation(fields: [userId],references: [id],onDelete: Cascade)
-  userId    String?   @db.Uuid
-  createdAt DateTime  @default(now())
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?  @db.Uuid
+  createdAt DateTime @default(now())
 }
 
 model Product {
-  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name      String
   price     Int
   image     String
-  createdAt DateTime  @default(now())
-  Domain    Domain?   @relation(fields: [domainId],references: [id],onDelete: Cascade)
-  domainId  String?   @db.Uuid
+  createdAt DateTime @default(now())
+  Domain    Domain?  @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  domainId  String?  @db.Uuid
 }
 
 enum Plans {
@@ -166,6 +168,6 @@ enum Plans {
 }
 
 enum Role {
-  OWNER
-  CUSTOMER
+  user
+  assistant
 }

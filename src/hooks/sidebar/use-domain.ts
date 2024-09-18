@@ -4,14 +4,38 @@ import { onIntegrateDomain } from "@/actions/settings";
 import { useToast } from "@/components/ui/use-toast";
 import { AddDomainSchema } from "@/schemas/setting.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UploadClient } from "@uploadcare/upload-client"
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form"; 
 
-const upload = new UploadClient({
-    publicKey: process.env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY as string
-});
+const cloudianryCofig = {
+    cloud_name : process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string,
+    upload_preset : process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string,
+    folder_name : process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER_NAME as string
+}
+
+const uploadCloudinar = async (file:any) => {
+    const formData = new FormData();
+    formData.append("file",file);
+    formData.append("upload_preset",cloudianryCofig.upload_preset);
+    formData.append("folder",cloudianryCofig.folder_name);
+    try {
+        const response = await fetch(
+            `https://api.cloudinary.com/v1_1/${cloudianryCofig.cloud_name}/image/upload`,
+            {
+                method: "POST",
+                body:formData,
+            }
+        );
+        const data = await response.json();
+        if(data?.public_id) {
+            return data.public_id;
+        }
+        return null;
+    } catch (error) {
+        console.log("Error in uplading file : ",error);
+    }
+}
 
 export const useDomain = () => {
     const {register, handleSubmit, formState:{errors}, reset} = useForm<FieldValues>({
@@ -30,8 +54,9 @@ export const useDomain = () => {
 
     const onAddDomain = handleSubmit(async (values: FieldValues) => {
         setLoading(true);
-        const uploaded = await upload.uploadFile(values.image[0]);
-        const domain = await onIntegrateDomain(values.domain, uploaded.uuid);
+        // const uploaded = await upload.uploadFile(values.image[0]);
+        const uploaded = await uploadCloudinar(values.image[0]);
+        const domain = await onIntegrateDomain(values.domain, uploaded);
         if(domain){
             reset();
             setLoading(false);

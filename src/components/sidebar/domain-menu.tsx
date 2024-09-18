@@ -22,6 +22,13 @@ type Props = {
         | undefined
 }
 
+const cloudianryCofig = {
+    cloud_name : process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string,
+    upload_preset : process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string,
+    folder_name : process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER_NAME as string
+}
+
+
 const DomainMenu = ({domains,min}: Props) => {
     const { register, onAddDomain, loading, errors, isDomain } = useDomain();
   return (
@@ -77,7 +84,7 @@ const DomainMenu = ({domains,min}: Props) => {
                             domain.name.split(".")[0] == isDomain && "bg-white"
                         )}>
                         <Image
-                            src={`https://ucarecdn.com/${domain.icon}/`}
+                            src={`https://res.cloudinary.com/${cloudianryCofig.cloud_name}/image/upload/f_auto,q_auto/${domain.icon}`}
                             alt="logo"
                             width={20}
                             height={20}

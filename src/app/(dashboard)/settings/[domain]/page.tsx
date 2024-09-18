@@ -9,7 +9,7 @@ type Props = { params: { domain: string } }
 
 const DomainSettingPage = async ({ params }: Props) => {
   const domain = await onGetCurrentDomainInfo(params.domain);
-  if (!domain) redirect("/dashboard");
+  if (!domain?.domains.length) redirect("/dashboard");
   return (
     <>
       <InfoBar />
@@ -18,13 +18,13 @@ const DomainSettingPage = async ({ params }: Props) => {
           <div className="w-full">
             <SettingForm
               plan={domain.subscription?.plan!}
-              chatBot={domain.domains[0].chatBot}
-              id={domain.domains[0].id}
-              name={domain.domains[0].name}
+              chatBot={domain?.domains[0]?.chatBot}
+              id={domain?.domains[0]?.id}
+              name={domain?.domains[0]?.name}
             />
           </div>
           <div className="w-full mt-4">
-            <BotTraining id={domain.domains[0].id} />
+            <BotTraining id={domain?.domains[0]?.id} />
           </div>
         </div>
       </div>
