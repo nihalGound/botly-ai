@@ -21,6 +21,7 @@ type Props = {
 
 const ConversationMenu = ({domains}: Props) => {
   const {register, chatRooms, loading, onGetActiveChatMessages} = useConversation();
+  console.log("chatRooms: ",chatRooms);
   return (
     <div className="py-3 px-0">
       <TabsMenu triggers={TAB_MENU}>

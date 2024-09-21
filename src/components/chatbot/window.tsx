@@ -98,7 +98,7 @@ const BotWindow = forwardRef<HTMLDivElement, BotWindowProps>(
                 </div>
                 <div className="relative w-16 h-16">
                     <Image
-                        src="/images/prop-user.png"
+                        src="https://res.cloudinary.com/dqglrqnma/image/upload/f_auto,q_auto/botly-ai/ty65uqbvvdylmekvzhio"
                         fill
                         alt="users"
                         objectFit="contain"

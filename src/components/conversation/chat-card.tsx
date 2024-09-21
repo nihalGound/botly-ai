@@ -1,5 +1,5 @@
 "use client"
-import { onChatTime } from '@/hooks/conversation/use-conversation'
+import { useChatTime } from '@/hooks/conversation/use-conversation'
 import React from 'react'
 import { Card, CardContent, CardDescription } from '../ui/card'
 import { Avatar, AvatarFallback } from '../ui/avatar'
@@ -16,7 +16,7 @@ type Props = {
 }
 
 const ChatCard = ({title,description,createdAt,id,onChat,seen}: Props) => {
-    const {messageSentAt, urgent} = onChatTime(createdAt,id)
+    const {messageSentAt, urgent} = useChatTime(createdAt,id)
 
   return (
     <Card

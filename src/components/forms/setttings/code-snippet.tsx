@@ -83,7 +83,9 @@ const CodeSnippet = ({ id }: Props) => {
           size={20}
           onClick={() => {
             navigator.clipboard.writeText(snippet);
-            // Add a toast notification here if desired
+            toast({
+              title: "Code snippet copied to clipboard !!"
+            })
           }}
         />
       </div>

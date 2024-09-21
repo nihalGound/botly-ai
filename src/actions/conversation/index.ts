@@ -1,3 +1,4 @@
+"use server"
 import { client } from "@/lib/prisma"
 import { pusherServer } from "@/lib/utils"
 
@@ -78,6 +79,7 @@ export const onGetDomainChatRooms = async (id: string) => {
                 },
             },
         })
+        console.log("domains : ",domains);
         if(domains) {
             return domains
         }
