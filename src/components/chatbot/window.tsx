@@ -134,7 +134,7 @@ const BotWindow = forwardRef<HTMLDivElement, BotWindowProps>(
                         className="flex px-3 py-1  flex-1 justify-between gap-x-1 items-center bg-porcelain"
                     >
                         <Label htmlFor="bot-image"
-                        className="">
+                            className="">
                             <Paperclip />
                             <Input
                                 type="file"
@@ -175,6 +175,9 @@ const BotWindow = forwardRef<HTMLDivElement, BotWindowProps>(
                     </div>
                 </TabsContent>
             </TabsMenu>
+            <div className="flex justify-center">
+                <p className="text-gray-400 text-xs">Powered by Botly-ai</p>
+            </div>
         </div>
     })
 

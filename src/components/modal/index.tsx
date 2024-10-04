@@ -23,11 +23,11 @@ const Modal = ({trigger,children,title,description,type,logo}: Props) => {
                         {trigger}
                     </DialogTrigger>
                     <DialogContent>
-                        <div className="flex justify-center gap-3">
+                        <div className="flex  justify-end gap-3">
                             <div className="w-12 h-12 relative">
                                 <Image
                                     //upload image in cloudinary then change src url WIP
-                                    src={`https://ucarecdn.com/2c9bd4ab-1f00-41df-bad2-df668f65a232/`}
+                                    src={`https://res.cloudinary.com/dqglrqnma/image/upload/v1727542119/botly-ai/zfshpc9ubw5ycmtadpmu.png`}
                                     fill
                                     alt="Botly"
                                 />
@@ -39,7 +39,8 @@ const Modal = ({trigger,children,title,description,type,logo}: Props) => {
                             <div className="w-1/2 h-1/2 relative">
                                 <Image
                                     src={`https://res.cloudinary.com/${cloudianryCofig.cloud_name}/image/upload/f_auto,q_auto/${logo}`}
-                                    fill
+                                    height={50}
+                                    width={50}
                                     alt="Stripe"
                                 />
                             </div>

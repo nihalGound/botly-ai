@@ -16,6 +16,7 @@ type Props = {
     errors: FieldErrors<FieldValues>
     lines?: number
     form?: string
+    defaultValue?:string
 }
 
 const FormGenerator = ({
@@ -28,7 +29,8 @@ const FormGenerator = ({
     form,
     label,
     lines,
-    options
+    options,
+    defaultValue,
 }: Props) => {
     switch(inputType){
         case "input":
@@ -43,6 +45,7 @@ const FormGenerator = ({
                         type={type}
                         placeholder={placeholder}
                         form={form}
+                        defaultValue={defaultValue}
                         {...register(name)}
                     
                     />
@@ -94,6 +97,7 @@ const FormGenerator = ({
                     <Textarea
                         form={form}
                         id={`input-${label}`}
+                        defaultValue={defaultValue}
                         placeholder={placeholder}
                         {...register(name)}
                         rows={lines}

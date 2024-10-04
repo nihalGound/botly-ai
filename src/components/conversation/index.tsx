@@ -8,6 +8,7 @@ import ConversationnSearch from './conversation-search'
 import { Loader } from '../loader'
 import ChatCard from './chat-card'
 import { CardDescription } from '../ui/card'
+import { Separator } from '../ui/separator'
 
 type Props = {
     domains?: 
@@ -51,6 +52,13 @@ const ConversationMenu = ({domains}: Props) => {
                 )}
               </Loader>
             </div>
+        </TabsContent>
+        <TabsContent value="all">
+            <Separator
+              orientation="horizontal"
+              className="mt-5"
+            />
+            all
         </TabsContent>
         {/* create tab content for other tabs all, expired,starred */}
       </TabsMenu>

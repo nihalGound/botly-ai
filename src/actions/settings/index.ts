@@ -168,6 +168,7 @@ export const onGetCurrentDomainInfo = async (domain:string) => {
                     name: true,
                     icon: true,
                     userId: true,
+                    products: true,
                     chatBot: {
                         select: {
                             id:true,
@@ -471,6 +472,60 @@ export const onGetAllFilterQuestions = async (id:string) => {
         return {
             status: 400,
             message: "Oops! something went wrong"
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const onGetPaymentConnected = async () => {
+    try {
+        const user = await currentUser()
+        if(user) {
+            const connected = await client.user.findUnique({
+                where: {
+                    clerkId: user.id,
+                },
+                select: {
+                    stripeId: true,
+                },
+            })
+            if(connected) {
+                return connected.stripeId
+            }
+        }
+    } catch (error) {
+        console.log(error)   
+    }
+}
+
+export const onCreateNewDomainProduct = async (domainId: string,name: string, image: string, price: string) => {
+    try {
+        const user = await currentUser();
+        if(!user) {
+            return ;
+        }
+
+        const product = await client.domain.update({
+            where: {
+                id:domainId,
+            },
+            data: {
+                products: {
+                    create: {
+                        name,
+                        image,
+                        price: parseInt(price),
+                    },
+                },
+            },
+        })
+
+        if(product) {
+            return {
+                status: 200,
+                message: "Product successfully created",
+            }
         }
     } catch (error) {
         console.log(error)

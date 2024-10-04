@@ -1,9 +1,7 @@
-"use client"
-
-import { onChatBotImageUpdate, onCreateFilterQuestions, onCreateHelpDeskQuestion, onDeleteUserDomain, onGetAllFilterQuestions, OnGetAllHelpDeskQuestions, onUpdateDomain, onUpdatePassword, onUpdateWelcomeMessage } from "@/actions/settings";
-import { useToast } from "@/components/ui/use-toast";
+import { onChatBotImageUpdate, onCreateFilterQuestions, onCreateHelpDeskQuestion, onCreateNewDomainProduct, onDeleteUserDomain, onGetAllFilterQuestions, OnGetAllHelpDeskQuestions, onUpdateDomain, onUpdatePassword, onUpdateWelcomeMessage } from "@/actions/settings";
+import { toast, useToast } from "@/components/ui/use-toast";
 import { ChangePasswordProps, ChangePasswordSchema } from "@/schemas/auth.schema";
-import { DomainSettingsProps, DomainSettingsSchema, FilterQuestionsSchema, HelpDeskQuestionsProps, HelpDeskQuestionsSchema } from "@/schemas/setting.schema";
+import { AddProductProps, AddProductSchema, DomainSettingsProps, DomainSettingsSchema, FilterQuestionsSchema, HelpDeskQuestionsProps, HelpDeskQuestionsSchema } from "@/schemas/setting.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
@@ -253,6 +251,47 @@ export const useFilterQuestions = (id: string) => {
         onAddFilterQuestions,
         isLoading,
         isQuestions
+    }
+}
+
+export const useProducts = (id: string) => {
+    const {
+        register,
+        formState:{errors},
+        handleSubmit,
+        reset,
+    } = useForm<AddProductProps>({
+        resolver:zodResolver(AddProductSchema),
+    });
+
+    const [loading,setLoading] = useState<boolean>(false);
+
+    const onCreateNewProduct = handleSubmit(async (values)=> {
+        try {
+            setLoading(true);
+            const imagePublicId = await uploadCloudinar(values.image[0]);
+            const productCreated = await onCreateNewDomainProduct(id,values.name,imagePublicId,values.price);
+
+            if(productCreated) {
+                toast({
+                    title: productCreated.status === 200 ? "Success": "Oops, something went wrong!!",
+                    description: productCreated.message,
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+            reset();
+        }
+    })
+
+
+    return {
+        loading,
+        onCreateNewProduct,
+        register,
+        errors,
     }
 }
 

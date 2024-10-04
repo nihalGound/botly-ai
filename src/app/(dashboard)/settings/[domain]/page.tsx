@@ -2,6 +2,7 @@ import { onGetCurrentDomainInfo } from '@/actions/settings';
 import BotTraining from '@/components/forms/setttings/bot-training';
 import SettingForm from '@/components/forms/setttings/form';
 import InfoBar from '@/components/infobar';
+import ProductTable from '@/components/products';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
@@ -25,6 +26,7 @@ const DomainSettingPage = async ({ params }: Props) => {
           </div>
           <div className="w-full mt-4">
             <BotTraining id={domain?.domains[0]?.id} />
+            <ProductTable id={domain.domains[0].id} products={domain.domains[0].products || []} />
           </div>
         </div>
       </div>

@@ -63,17 +63,17 @@ const CodeSnippet = ({ id }: Props) => {
   const previewSnippet = snippet.split('\n').slice(0, 3).join('\n') + '\n...';
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden max-w-full">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden max-w-full dark:bg-black">
       <div className="p-4">
-        <pre className="text-sm overflow-x-auto">
+        <pre className="text-sm overflow-x-auto dark:bg-black">
           <code className="language-javascript">
             {isExpanded ? snippet : previewSnippet}
           </code>
         </pre>
       </div>
-      <div className="bg-gray-50 px-4 py-3 sm:px-6 flex justify-between items-center">
+      <div className="bg-gray-50 px-4 py-3 sm:px-6 flex justify-between items-center dark:bg-[#2e2d2d]">
         <button
-          className="text-sm text-blue-600 hover:text-blue-800"
+          className="text-sm text-blue-600 hover:text-blue-800 dark:text-white"
           onClick={() => setIsExpanded(!isExpanded)}
         >
           {isExpanded ? 'Show less' : 'Show full code'}

@@ -78,6 +78,12 @@ export const FilterQuestionsSchema = z.object({
     question: z.string().min(1, {message: "Question cannot be left empty"}),
 })
 
+export type AddProductProps = {
+    name: string
+    image: string
+    price: string
+}
+
 export const AddProductSchema = z.object({
     name: z.string().min(3, {message: "The name must have atleast 3 characters"}),
     image: z.any().refine((files) => files?.[0]?.size <= MAX_UPLOAD_SIZE, {
