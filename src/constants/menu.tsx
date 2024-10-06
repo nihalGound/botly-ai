@@ -4,6 +4,7 @@ import DashboardIcon from "@/icons/dashboard-icon"
 import EmailIcon from "@/icons/email-icon"
 import HelpDeskIcon from "@/icons/help-desk-icon"
 import IntegrationsIcon from "@/icons/integrations-icon"
+import MoneyIcon from "@/icons/money-icon"
 import SettingsIcon from "@/icons/settings-icon"
 import StarIcon from "@/icons/star-icon"
 import TimerIcon from "@/icons/timer-icon"
@@ -98,4 +99,19 @@ export const BOT_TABS_MENU: TABS_MENU_PROPS[] = [
     label: 'helpdesk',
     icon: <HelpDeskIcon />,
   },
+]
+
+export const NAVBAR_TABS_MENU = [
+  {
+    label: "Pricing",
+    href: "#pricing"
+  },
+  {
+    label: "Home",
+    href: "#"
+  },
+  {
+    label: "Demo",
+    href: "#demo",
+  }
 ]

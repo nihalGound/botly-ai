@@ -128,18 +128,18 @@ export const useChatWindow = () => {
         onScrollToBottom()
     },[chats,messageWindowRef])
 
-    // useEffect(()=>{
-    //     if(chatRoom) {
-    //         pusherClient.subscribe(chatRoom)
-    //         pusherClient.bind("realtime-mode",(data:any)=>{
-    //             setChats(prev => [...prev,data.chat])
-    //         })
-    //         return () => {
-    //             pusherClient.unbind("realtime-mode")
-    //             pusherClient.unsubscribe(chatRoom)
-    //         }
-    //     }
-    // },[chatRoom])
+    useEffect(()=>{
+        if(chatRoom) {
+            pusherClient.subscribe(chatRoom)
+            pusherClient.bind("realtime-mode",(data:any)=>{
+                setChats(prev => [...prev,data.chat])
+            })
+            return () => {
+                pusherClient.unbind("realtime-mode")
+                pusherClient.unsubscribe(chatRoom)
+            }
+        }
+    },[chatRoom])
 
     const onHandleSentMessage = handleSubmit(async (values) => {
         try {

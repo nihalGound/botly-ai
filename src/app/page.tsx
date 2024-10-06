@@ -1,5 +1,8 @@
 import NavBar from "@/components/navbar";
+import FeatureShowcase from "@/components/table/feature-showcase";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardSpotlight } from "@/components/ui/card-spotlight";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { pricingCards } from "@/constants/pricing";
 import clsx from "clsx";
 import { Check } from "lucide-react";
@@ -8,36 +11,29 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-black bg-grid-white/[0.2] relative">
       <NavBar />
       <section>
-        <div className="flex items-center justify-center flex-col mt-[80px] gap-4 ">
-          <span className="text-orange bg-orange/20 px-4 py-2 rounded-full text-sm">
-            An AI powered sales assistant chatbot
-          </span>
-
-          <Image
-            src="/images/corinna-ai-logo.png"
-            width={500}
-            height={100}
-            alt="Logo"
-            className="max-w-lg object-contain max-md:w-[250px]"
-          />
-
-          <p className="text-black font-normal text-sm text-center w-11/12 dark:text-white">
-            Your AI powered sales assistant! Embed Corinna AI into any website with just a snippet of code!
-          </p>
-
-          <Link href="/dashboard" className="bg-orange text-white  text-sm font-semibold px-4 py-2 my-auto text-center rounded-md tracking-normal max-md:text-sm">
-            Get Started For Free
-          </Link>
-          <Image
-            src="/images/iphonecorinna.png"
-            alt="bot-ui"
-            width={400}
-            height={100}
-            className="max-w-lg object-contain max-md:w-[200px]"
-          />
+        <div className="flex flex-col overflow-hidden">
+          <ContainerScroll
+            titleComponent={
+              <>
+                <h1 className="bg-gradient-to-t from-[#FFBA68] to-[#FF5D00] text-transparent bg-clip-text text-7xl md:text-9xl text-center font-bold mb-20">Botly AI</h1>
+                <h1 className="text-4xl font-semibold text-white mb-10">
+                AI Chatbots and Marketing Automation – The Future of Sales
+                </h1>
+              </>
+            }
+          >
+            <Image
+              src={"/images/ui.png"}
+              alt="hero"
+              height={720}
+              width={1400}
+              className="mx-auto rounded-2xl object-cover h-full object-left-top"
+              draggable={false}
+            />
+          </ContainerScroll>
         </div>
       </section>
       <section className="border-t border-zinc-100 mt-10 flex flex-col">
@@ -49,51 +45,41 @@ export default function Home() {
             Our straightforward pricing plans are tailored to meet your needs. If you're not ready to commit you can get started for free.
           </p>
         </div>
-
-        <div className="flex justify-center mt-7 gap-x-3 shadow-lg max-md:flex-wrap max-md:gap-x-0 max-md:gap-y-3">
+          <div id="features">
+            <FeatureShowcase />
+          </div>
+              
+        <div className=" w-full px-5 flex justify-center mt-7 gap-x-3 shadow-lg max-md:flex-wrap max-md:gap-x-0 max-md:gap-y-3" id="pricing">
             {pricingCards.map((card)=>(
-              <Card
-              key={card.title}
-              className={clsx("w-[300px] flex flex-col justify-between",{
-                "border-2 border-primary": card.title === "Ultimate",
-              })}
-              >
-                <CardHeader>
-                  <CardTitle className="text-orange">{card.title}</CardTitle>
-                  <CardDescription>
-                    {/* {pricingCards.find((c)=>c.title === card.title)?.description} */}
-                    {card.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <span className="text-4xl font-bold">{card.price}</span>
+              <CardSpotlight key={card.title}  className="text-white flex flex-col gap-y-2 max-md:min-w-full">
+                <div className="relative z-20">
+                    <h2 className="text-2xl font-bold">{card.title}</h2>
+                    <p>{card.description}</p>
+                </div>
+                <div className="relative">
+                  <span>{card.price}</span>
                   <span className="text-muted-foreground">
-                    <span>/ month</span>
-                  </span>
-                </CardContent>
-                <CardFooter className="flex flex-col items-start gap-y-2">
+                  <span>/month</span>
+                </span>
+                </div>
+                <div className="flex flex-col items-start gap-y-2 relative">
                   <div>
-                    {card.features.map((feature)=>(
-                      <div
-                      key={feature}
-                      className="flex gap-2">
-                        <Check />
-                        <p className="text-black font-semibold text-sm">{feature}</p>
+                    {card.features.map((feature) => (
+                      <div key={feature}
+                      className="flex gap-2"
+                      >
+                        <Check/>
+                        <p className="font-semibold text-sm">{feature}</p>
                       </div>
-                    ))
-
-                    }
+                    ))}
                   </div>
-                  <Link href={`/dashboard?plan=${card.title}`}
-                  className="rounded-md bg-[#f3d299] text-white font-bold text-lg text-center p-2 border-orange border-2 "
-                  >
+                  <Link href={"/sign-up"}
+                  className="rounded-md bg-[#ff5e00e9] font-bold text-lg text-center p-2 border-gray-700 border-2">
                     Get Started
                   </Link>
-                </CardFooter>
-              </Card>
-            ))
-
-            }
+                </div>
+              </CardSpotlight>
+            ))}
         </div>
       </section>
     </main>

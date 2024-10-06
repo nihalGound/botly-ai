@@ -73,7 +73,7 @@ const DomainMenu = ({domains,min}: Props) => {
                 </Loader>
             </AppDrawer>
         </div>
-        <div className="flex flex-col gap-1 text-ironside font-medium items-start">
+        <div className="flex flex-col gap-1 text-ironside font-medium items-start md:items-center">
             {domains &&
                 domains.map((domain) => (
                     <Link

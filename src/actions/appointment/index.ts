@@ -145,3 +145,4 @@ export const onGetallBookingsForCurrentUser = async (clerkId: string) => {
         console.log(error);
     }
 }
+
