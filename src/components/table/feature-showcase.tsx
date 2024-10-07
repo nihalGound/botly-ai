@@ -11,22 +11,23 @@ interface Step {
 }
 
 const steps: Step[] = [
-  {
-    title: "Create",
-    description: "Start with a blank canvas or choose from our templates.",
-    imageSrc: "/images/iphonecorinna.png"
-  },
-  {
-    title: "Collaborate",
-    description: "Work together in real-time with your team.",
-    imageSrc: "/images/email-marketing.png"
-  },
-  {
-    title: "Deploy",
-    description: "Publish your project with a single click.",
-    imageSrc: "/images/product-selling.png"
-  }
-]
+    {
+      title: "Seamless Chatbot Integration",
+      description: "Effortlessly integrate an AI-powered chatbot into your web app with just a simple embed code.",
+      imageSrc: "/images/iphonecorinna.png"
+    },
+    {
+      title: "Dynamic Email Marketing Campaigns",
+      description: "Create impactful campaigns and send bulk emails that resonate with your audience.",
+      imageSrc: "/images/email-marketing.png"
+    },
+    {
+      title: "Efficient Product Selling",
+      description: "Easily list and sell products to customers, leveraging chatbot interactions for seamless transactions.",
+      imageSrc: "/images/product-selling.png"
+    }
+  ];
+  
 
 const INTERVAL_DURATION = 5000 // 5 seconds for each step
 

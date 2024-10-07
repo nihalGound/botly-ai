@@ -1,6 +1,5 @@
 import NavBar from "@/components/navbar";
 import FeatureShowcase from "@/components/table/feature-showcase";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { pricingCards } from "@/constants/pricing";
@@ -37,7 +36,11 @@ export default function Home() {
         </div>
       </section>
       <section className="border-t border-zinc-100 mt-10 flex flex-col">
-        <div className="flex flex-col gap-2 items-center w-11/12">
+          <div id="features">
+            <FeatureShowcase />
+          </div>
+              
+        <div className="flex flex-col gap-2 items-center w-11/12 mt-2">
           <h2 className="text-black text-lg font-semibold text-center dark:text-white">
             Choose what fits you right
           </h2>
@@ -45,10 +48,6 @@ export default function Home() {
             Our straightforward pricing plans are tailored to meet your needs. If you're not ready to commit you can get started for free.
           </p>
         </div>
-          <div id="features">
-            <FeatureShowcase />
-          </div>
-              
         <div className=" w-full px-5 flex justify-center mt-7 gap-x-3 shadow-lg max-md:flex-wrap max-md:gap-x-0 max-md:gap-y-3" id="pricing">
             {pricingCards.map((card)=>(
               <CardSpotlight key={card.title}  className="text-white flex flex-col gap-y-2 max-md:min-w-full">

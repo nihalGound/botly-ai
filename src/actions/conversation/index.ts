@@ -186,4 +186,5 @@ export const onRealTimeChat = async (
             role,
         },
     })
+    console.log("pusher : ",pusherServer)
 }
