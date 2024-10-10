@@ -23,18 +23,7 @@ const MaxMenu = ({current,domains,onExpand,onSignOut}: Props) => {
   return (
     <div className="py-3 px-4 flex flex-col h-full">
         <div className="flex justify-between items-center">
-            <Image
-                src="/images/logo.png"
-                alt='LOGO'
-                sizes='100vw'
-                className="animate-fade-in opacity-0 delay-300 fill-mode-forwards"
-                style={{
-                    width: "50%",
-                    height: "auto"
-                }}
-                width={0}
-                height={0}
-            />
+        <h1 className="bg-gradient-to-t from-[#FFBA68] to-[#FF5D00] text-transparent bg-clip-text text-center font-bold text-3xl">Botly AI</h1>
             <Menu
                 className="cursor-pointer animate-fade-in opacity-0 delay-300 fill-mode-forwards dark:text-white"
                 onClick={onExpand}

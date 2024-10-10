@@ -120,17 +120,18 @@ export const useChatBot = () => {
     }
 
     const onStartChatting = handleSubmit(async (values) => {
-        reset()
         if(values.image.length) {
             // const uploaded = await upload.uploadFile(values.image[0])
             const uploaded = await uploadCloudinar(values.image[0]);
-            setOnChats((prev: any) => [
-                ...prev,
-                {
-                    role: "user",
-                    content: uploaded,
-                },
-            ])
+            if(!onRealTime?.mode) {
+                setOnChats((prev: any) => [
+                    ...prev,
+                    {
+                        role: "user",
+                        content: uploaded,
+                    },
+                ])
+            }
             setOnAiTyping(true)
             const response = await onAiChatBotAssistant(
                 currentBotId!,
@@ -147,20 +148,23 @@ export const useChatBot = () => {
                         chatroom: response.chatRoom,
                         mode: response.live,
                     }))
+                } else {
+                    setOnChats((prev: any) => [...prev,response.response])
                 } 
-                setOnChats((prev: any) => [...prev,response.response])
                 
             }
         }
-
+        reset()
         if(values.content) {
-            setOnChats((prev: any) => [
-                ...prev,
-                {
-                    role: "user",
-                    content: values.content,
-                },
-            ])
+            if(!onRealTime?.mode) {
+                setOnChats((prev: any) => [
+                    ...prev,
+                    {
+                        role: "user",
+                        content: values.content,
+                    },
+                ])
+            }
             setOnAiTyping(true)
 
             const response = await onAiChatBotAssistant(
@@ -179,7 +183,9 @@ export const useChatBot = () => {
                         mode: response.live,
                     }))
                 }
-                setOnChats((prev: any) => [...prev, response.response])
+                else {
+                    setOnChats((prev: any) => [...prev, response.response])
+                }
             }
         }
     })
@@ -233,5 +239,5 @@ export const useRealTime = (
         pusherClient.unbind('realtime-mode')
         pusherClient.unsubscribe(chatRoom)
       }
-    }, [setChats])
+    }, [])
   }
