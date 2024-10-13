@@ -150,6 +150,7 @@ export const useChatWindow = () => {
                 "assistant"
             )
             if(message) {
+                // setChats((prev) => [...prev,message.message[0]])
                 await onRealTimeChat(
                     chatRoom!,
                     message.message[0].message,

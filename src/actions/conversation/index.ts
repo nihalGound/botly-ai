@@ -179,12 +179,11 @@ export const onRealTimeChat = async (
     id: string,
     role: "assistant" | "user"
 ) => {
-    await pusherServer.trigger(chatroomId,"realtime-mode",{
+    pusherServer.trigger(chatroomId,"realtime-mode",{
         chat: {
             message,
             id,
             role,
         },
     })
-    console.log("pusher : ",pusherServer)
 }
