@@ -19,7 +19,7 @@ export default function Home() {
               <>
                 <h1 className="bg-gradient-to-t from-[#FFBA68] to-[#FF5D00] text-transparent bg-clip-text text-7xl md:text-9xl text-center font-bold mb-20">Botly AI</h1>
                 <h1 className="text-4xl font-semibold text-white mb-10">
-                AI Chatbots and Marketing Automation – The Future of Sales
+                AI Chatbots and Marketing Automation - The Future of Sales
                 </h1>
               </>
             }
@@ -45,7 +45,7 @@ export default function Home() {
             Choose what fits you right
           </h2>
           <p className="text-black font-normal text-sm text-center w-11/12 dark:text-white">
-            Our straightforward pricing plans are tailored to meet your needs. If you're not ready to commit you can get started for free.
+            Our straightforward pricing plans are tailored to meet your needs. If you&apos;re not ready to commit you can get started for free.
           </p>
         </div>
         <div className=" w-full px-5 flex justify-center mt-7 gap-x-3 shadow-lg max-md:flex-wrap max-md:gap-x-0 max-md:gap-y-3" id="pricing">

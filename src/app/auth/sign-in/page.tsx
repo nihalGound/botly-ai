@@ -21,7 +21,7 @@ const SignIn = (props: Props) => {
               Submit
             </Button>
             <p>
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/auth/sign-up"
                 className="font-bold"
