@@ -179,7 +179,7 @@ export const useCompletePayment = (
             const {error,paymentIntent} = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
-                    return_url: `${process.env.NEXT_PUBLIC_URL}/settings`,
+                    return_url: `${process.env.NEXT_PUBLIC_URL}/`,
                 },
                 redirect: "if_required",
             })
