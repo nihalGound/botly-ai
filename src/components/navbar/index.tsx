@@ -30,7 +30,7 @@ const NavBar = (props: Props) => {
             <Link className="bg-orange text-white rounded-sm px-4 py-2
             max-md:px-3 max-md:py-1.5 max-md:mt-2 ml-10"
                 href="/dashboard">
-                Free Trial
+                Dashboard
             </Link>
         </div>
     )

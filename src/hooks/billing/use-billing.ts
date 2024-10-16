@@ -70,7 +70,7 @@ export const useCompleteCustomerPayment = (onNext: ()=> void) => {
             const {error, paymentIntent} = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
-                    return_url: "https://localhost:3000/",
+                    return_url: `${process.env.NEXT_PUBLIC_URL}`,
                 },
                 redirect: "if_required",
             })
@@ -179,7 +179,7 @@ export const useCompletePayment = (
             const {error,paymentIntent} = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
-                    return_url: "http://localhost:3000/settings",
+                    return_url: `${process.env.NEXT_PUBLIC_URL}/settings`,
                 },
                 redirect: "if_required",
             })

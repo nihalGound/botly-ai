@@ -1,10 +1,10 @@
 import React from 'react'
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
 import QuestionsForm from './questions'
-import BookAppointmentDate from './book-date'
+import BookAppointmentDate from "./book-date"
 import PaymentCheckout from './product-checkout'
 
-type PortalStepsProps = {
+type Props = {
   questions: {
     id: string
     question: string
@@ -22,18 +22,18 @@ type PortalStepsProps = {
   slot?: string
   loading: boolean
   bookings?:
-  | {
-    date: Date
-    slot: string
-  }[]
-  | undefined
+    | {
+        date: Date
+        slot: string
+      }[]
+    | undefined
   products?:
-  | {
-    name: string
-    image: string
-    price: number
-  }[]
-  | undefined
+    | {
+        name: string
+        image: string
+        price: number
+      }[]
+    | undefined
   amount?: number
   stripeId?: string
 }
@@ -45,17 +45,17 @@ const PortalSteps = ({
   error,
   onNext,
   step,
-  date,
   onBooking,
+  date,
   onBack,
   onSlot,
-  slot,
   loading,
-  bookings,
+  slot,
   products,
+  bookings,
   amount,
   stripeId,
-}: PortalStepsProps) => {
+}: Props) => {
   if (step == 1) {
     return (
       <QuestionsForm
@@ -67,7 +67,7 @@ const PortalSteps = ({
     )
   }
 
-  if (step == 2 && type == "Appointment") {
+  if (step == 2 && type == 'Appointment') {
     return (
       <BookAppointmentDate
         date={date}
@@ -82,7 +82,8 @@ const PortalSteps = ({
     )
   }
 
-  if(step == 2 && type == "Payment") {
+
+  if (step == 2 && type == 'Payment') {
     return (
       <PaymentCheckout
         products={products}
@@ -93,6 +94,7 @@ const PortalSteps = ({
       />
     )
   }
+
   return (
     <div className="flex flex-col items-center gap-3">
       <h2 className="font-bold text-gray-600 text-4xl">Thank You</h2>
