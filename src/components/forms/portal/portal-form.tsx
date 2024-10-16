@@ -12,7 +12,7 @@ type PortalFormProps = {
   }[]
   type: 'Appointment' | 'Payment'
   customerId: string
-  domainid: string
+  domainId: string
   email: string
   bookings?:
     | {
@@ -35,7 +35,7 @@ const PortalForm = ({
   questions,
   type,
   customerId,
-  domainid,
+  domainId,
   bookings,
   products,
   email,
@@ -54,7 +54,7 @@ const PortalForm = ({
     onSelectedTimeSot,
     selectedSlot,
     loading,
-  } = usePortal(customerId, domainid, email)
+  } = usePortal(customerId, domainId, email)
 
   useEffect(() => {
     if (questions.every((question) => question.answered)) {

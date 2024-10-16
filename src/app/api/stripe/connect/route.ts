@@ -3,7 +3,6 @@ import { currentUser } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-const url = process.env.NEXT_PUBLIC_URL;
 
 const stripe = new Stripe(process.env.STRIPE_SECRET!, {
   typescript: true,
@@ -150,5 +149,8 @@ export async function GET() {
       'An error occurred when calling the Stripe API to create an account:',
       error
     )
+    return NextResponse.json({
+      error: "An error occured when calling the Stripe API to create a n account :"
+    })
   }
 }
