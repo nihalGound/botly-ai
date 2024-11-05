@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios"
-import { onCreateCustomerPaymentIntentSecret, onGetStripeClientSecret, onUpdateSubscription } from "@/actions/stripe";
+import { onCreateCustomerPaymentIntentSecret, onGetStripeClientSecret, onUpdateSubscription, stripeConnect } from "@/actions/stripe";
 import { useToast } from "@/components/ui/use-toast";
 import { useElements, useStripe as useStripeHook} from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
@@ -11,10 +10,10 @@ export const useStripe = () => {
     const onStripeConnect = async () =>  {
         try {
             setonStripeAccountPending(true)
-            const account = await axios.get("/api/stripe/connect")
+            const account = await stripeConnect();
             if(account) {
                 if(account) {
-                    window.location.href = account.data.url
+                    window.location.href = account.data
                 }
             }
         } catch (error) {
