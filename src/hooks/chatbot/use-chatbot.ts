@@ -95,14 +95,15 @@ export const useChatBot = () => {
     let limitRequest = 0
 
     useEffect(() => {
-        window.addEventListener("message", (e) => {
-            const botid = e.data
-            if (limitRequest < 1 && typeof botid == "string") {
-                onGetDomainChatBot(botid)
-                limitRequest++
-            }
+        window.addEventListener('message', (e) => {
+          console.log(e.data)
+          const botid = e.data
+          if (limitRequest < 1 && typeof botid == 'string') {
+            onGetDomainChatBot(botid)
+            limitRequest++
+          }
         })
-    }, [])
+      }, [])
 
     const onGetDomainChatBot = async (id: string) => {
         setCurrentBotId(id)

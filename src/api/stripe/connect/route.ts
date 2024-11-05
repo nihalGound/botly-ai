@@ -1,38 +1,42 @@
-"use server"
 import { client } from '@/lib/prisma';
 import { currentUser } from '@clerk/nextjs';
-import { NextResponse } from 'next/server';
+import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
-const stripeSecret = process.env.STRIPE_SECRET;
-if (!stripeSecret) {
-  console.error("STRIPE_SECRET is not defined");
-}
-
-const stripe = new Stripe(stripeSecret!, {
+const stripe = new Stripe(process.env.STRIPE_SECRET!, {
   typescript: true,
   apiVersion: '2024-09-30.acacia',
 });
 
-export async function GET() {
+export default async function handler(req:NextApiRequest, res:NextApiResponse) {
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   try {
     const user = await currentUser();
-    if (!user) return new NextResponse('User not authenticated');
+    if (!user) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
 
     const account = await stripe.accounts.create({
       country: 'US',
       type: 'custom',
       business_type: 'company',
       capabilities: {
-        card_payments: { requested: true },
-        transfers: { requested: true },
+        card_payments: {
+          requested: true,
+        },
+        transfers: {
+          requested: true,
+        },
       },
       external_account: 'btok_us',
       tos_acceptance: {
         date: 1547923073,
         ip: '172.18.80.19',
       },
-    });
+    })
 
     if (account) {
       await stripe.accounts.update(account.id, {
@@ -105,12 +109,12 @@ export async function GET() {
         collection_options: { fields: 'currently_due' },
       });
 
-      return NextResponse.json({ url: accountLink.url });
+      return res.status(200).json({ url: accountLink.url });
     }
   } catch (error) {
-    console.error('Error when creating Stripe account:', error);
-    return NextResponse.json({
-      error: error instanceof Error ? error.message : "An unexpected error occurred",
+    console.error('An error occurred when calling the Stripe API to create an account:', error);
+    return res.status(500).json({
+      error: error instanceof Error ? error.message : 'An unexpected error occurred',
     });
   }
 }
