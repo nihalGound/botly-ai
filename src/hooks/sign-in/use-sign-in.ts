@@ -1,4 +1,3 @@
-"use client"
 import { useToast } from "@/components/ui/use-toast"
 import { UserLoginProps, UserLoginSchema } from "@/schemas/auth.schema";
 import { useSignIn } from "@clerk/nextjs";
@@ -36,7 +35,9 @@ export const UseSignInForm = () => {
                         description: "Welcome back!",
                     })
                     setIsLoading(false)
-                    router.push("/dashboard");
+                    console.log("Reirecing to dashboard ...")
+                    // router.push("/dashboard");
+                    window.location.href = "/dashboard"
                 }
             } catch (error:any) {
                 setIsLoading(false)
