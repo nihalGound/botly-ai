@@ -51,7 +51,8 @@ const AiChatBot = (props: Props) => {
       >
         {currentBot?.chatBot?.icon ? (
           <Image
-            src={`https://res.cloudinary.com/${cloudianryCofig.cloud_name}/image/upload/f_auto,q_auto/${currentBot.chatBot.icon}`}
+            // src={`https://res.cloudinary.com/${cloudianryCofig.cloud_name}/image/upload/f_auto,q_auto/${currentBot.chatBot.icon}`}
+            src={"logo.jpg"}
             alt="bot"
             fill
           />

@@ -19,28 +19,27 @@ const CodeSnippet = ({ id }: Props) => {
     document.head.append(style);
     }
     
-    iframeStyles('
+    iframeStyles(\`
         .chat-frame {
             position: fixed;
             bottom: 50px;
             right: 50px;
             border: none;
         }
-    ')
+    \`)
     
-    iframe.src = "${process.env.NEXT_PUBLIC_URL}/chatbot"
+    iframe.src = "http://localhost:3000/chatbot"
     iframe.classList.add('chat-frame')
     document.body.appendChild(iframe)
     
     window.addEventListener("message", (e) => {
-        if(e.origin !== "${process.env.NEXT_PUBLIC_URL}") return null
+        if(e.origin !== "http://localhost:3000") return null
         let dimensions = JSON.parse(e.data)
         iframe.width = dimensions.width
         iframe.height = dimensions.height
-        iframe.contentWindow.postMessage("${id}", ""${process.env.NEXT_PUBLIC_URL})
+        iframe.contentWindow.postMessage("${id}", "http://localhost:3000/")
     })
         `
-
   return (
     <div className="mt-10 flex flex-col gap-5 items-start">
       <Section
